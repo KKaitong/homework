@@ -4,7 +4,6 @@
 var webpack = require('webpack');   //为了添加插件 声明全局变量
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 module.exports = {
 
     devtool: 'eval-source-map',            //配置生成Source Maps，选择合适的选项

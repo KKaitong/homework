@@ -2,36 +2,40 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>js点击按钮文字随机点名器代码 - 站长素材</title>
-    <script type="text/javascript">
-        var namelist = [ "张三", "李四", "王五", "贺六", "孙九", "赵十", "刘一"];
-        var mytime = null;
-
-        function doit() {
-            var bt = window.document.getElementById("bt");
-            if (mytime == null) {
-                bt.innerHTML = "停止点名";
-                show();
-            } else {
-                bt.innerHTML = "开始点名";
-                clearTimeout(mytime);
-                mytime = null;
-            }
-        }
-
-        function show() {
-            var box = window.document.getElementById("box");
-            var num = Math.floor((Math.random() * 100000)) % namelist.length;
-
-            box.innerHTML = namelist[num];
-
-            mytime = setTimeout("show()", 1);
-        }
-    </script>
+    <title>js点击按钮文字随机点名器代码</title>
 </head>
-<body id="bodybj">
+<body>
 
 <div id="box">亲，准备好点名了吗？</div>
-<button type="button" id="bt" onClick="doit()">开始点名</button>
+<button type="button" id="bt" onClick="doit()" date-time="2">开始点名</button>
+<script src="jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+
+
+    var namelist = ["张三", "李四", "王五", "贺六", "孙九", "赵十", "刘一"];
+    var mytime = null;
+    function doit() {
+       var t =  $(this).attr("date-time");
+        var bt = $("#bt");
+        if (mytime == null) {
+            bt.html("停止点名");
+            show(t);
+        } else {
+            bt.html("开始点名");
+            clearTimeout(mytime);
+            mytime = null;
+        }
+    }
+
+    function show(t) {
+            console.log(t)
+        var box = window.document.getElementById("box");
+        var num = Math.floor((Math.random() * 100000)) % namelist.length;
+
+        box.innerHTML = namelist[num];
+
+        mytime = setTimeout("show()", 1);
+    }
+</script>
 </body>
 </html>

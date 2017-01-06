@@ -7,19 +7,21 @@
 <body>
 
 <div id="box">亲，准备好点名了吗？</div>
-<button type="button" id="bt" onClick="doit()" date-time="2">开始点名</button>
+<button type="button" id="bt" onClick="doit(this)" date-time="2">开始点名</button>
 <script src="jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
 
 
     var namelist = ["张三", "李四", "王五", "贺六", "孙九", "赵十", "刘一"];
     var mytime = null;
-    function doit() {
-       var t =  $(this).attr("date-time");
+    function doit(i) {
+       var t =  $(i).attr("date-time");
         var bt = $("#bt");
+        var s= 'stop';
+        console.log(t);
         if (mytime == null) {
             bt.html("停止点名");
-            show(t);
+            show(t,s);
         } else {
             bt.html("开始点名");
             clearTimeout(mytime);
@@ -27,8 +29,7 @@
         }
     }
 
-    function show(t) {
-            console.log(t)
+    function show() {
         var box = window.document.getElementById("box");
         var num = Math.floor((Math.random() * 100000)) % namelist.length;
 

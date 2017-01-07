@@ -7,36 +7,44 @@
 <body>
 
 <div id="box">亲，准备好点名了吗？</div>
-<button type="button" id="bt" onClick="doit(this)" date-time="2">开始点名</button>
+<button type="button" id="bt" onClick="doit(this)" date-time="3">开始点名</button>
 <script src="jquery-1.10.1.min.js"></script>
+<script src='name.js'></script>
 <script type="text/javascript">
-
-
-    var namelist = ["张三", "李四", "王五", "贺六", "孙九", "赵十", "刘一"];
+    //    var namelist = ["张三", "李四", "王五", "贺六", "孙九", "赵十", "刘一"];
     var mytime = null;
     function doit(i) {
-       var t =  $(i).attr("date-time");
+        var t = $(i).attr("date-time");
         var bt = $("#bt");
-        var s= 'stop';
-        console.log(t);
         if (mytime == null) {
             bt.html("停止点名");
-            show(t,s);
+            show(t);
         } else {
             bt.html("开始点名");
             clearTimeout(mytime);
             mytime = null;
+            selectedPerson(t)
         }
     }
-
     function show() {
-        var box = window.document.getElementById("box");
+        var box = $("#box");
         var num = Math.floor((Math.random() * 100000)) % namelist.length;
-
-        box.innerHTML = namelist[num];
-
+        box.html(namelist[num]);
         mytime = setTimeout("show()", 1);
     }
+    function selectedPerson(t) {
+        var box = $("#box");
+        var name=[];
+        for(var i =0;i<t;i++){
+            var num = Math.floor((Math.random() * 100000)) % namelist.length;
+            name.push(namelist[num]);
+            namelist.splice(i, 1);
+        }
+        box.html(name);
+        console.log(namelist);
+        console.log(name);
+    }
+
 </script>
 </body>
 </html>

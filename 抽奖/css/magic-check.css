@@ -1,0 +1,100 @@
+@keyframes hover-color {
+    from {
+        border-color: #FFF;
+    }
+    to {
+        border-color: #FFD906;
+    }
+}
+
+.magic-radio {
+    position: absolute;
+    display: none;
+}
+
+.magic-radio[disabled] {
+    cursor: not-allowed;
+}
+
+.magic-radio + label {
+    position: relative;
+    display: block;
+    padding-left: 30px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.magic-radio + label:hover:before{
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+    animation-name: hover-color;
+}
+
+.magic-radio + label:before{
+    position: absolute;
+    top: 28px;
+    left: 0;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    content: '';
+    border: 2px solid #fff;
+}
+
+.magic-radio + label:after {
+    position: absolute;
+    display: none;
+    content: '';
+}
+
+.magic-radio[disabled] + label{
+    cursor: not-allowed;
+    color: #fff;
+}
+
+.magic-radio[disabled] + label:hover, .magic-radio[disabled] + label:before, .magic-radio[disabled] + label:after {
+    cursor: not-allowed;
+}
+
+.magic-radio[disabled] + label:hover:before{
+    border: 1px solid #fff;
+    animation-name: none;
+}
+
+.magic-radio[disabled] + label:before {
+    border-color: #fff;
+}
+
+.magic-radio:checked + label:before {
+    animation-name: none;
+}
+
+.magic-radio:checked + label:after {
+    display: block;
+}
+
+.magic-radio + label:before {
+    border-radius: 50%;
+}
+
+.magic-radio + label:after {
+    top: 34px;
+    left: 6px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #FFD906;
+}
+
+.magic-radio:checked + label:before {
+    border: 2px solid #FFD906;
+}
+
+.magic-radio:checked[disabled] + label:before {
+    border: 1px solid #fff;
+}
+
+.magic-radio:checked[disabled] + label:after {
+    background: #fff;
+}
+

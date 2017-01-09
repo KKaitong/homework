@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>慧松抽奖</title>
+    <link rel="stylesheet" href="css/magic-check.css">
     <style>
         body{
             width: 1920px;
@@ -38,8 +39,25 @@
             display: inline-block;
             font-size: 50px;
             margin: 0 10px 10px 0;
-            width: 101px;
+            width: 160px;
             text-align: center;
+        }
+        .record-list{
+            position: absolute;
+            display: inline-block;
+            width: 1070px;
+            height: 80px;
+            font-size: 50px;
+            top: 630px;
+            left: 419px;
+            text-align: center;
+        }
+        .record-item {
+            display: inline-block;
+            line-height: 80px;
+            font-size: 40px;
+            color: #FFD906;
+            cursor: pointer;
         }
         .do-select{
             position: absolute;
@@ -47,7 +65,7 @@
             width: 230px;
             height: 76px;
             font-size: 0px;
-            top: 670px;
+            top: 750px;
             left: 840px;
             text-align: center;
             background-color: transparent;
@@ -59,12 +77,30 @@
         .do-select.stop-btn{
             background-image: url(img/stop-btn.png) ;
         }
+        .radio{
+            line-height: 80px;
+
+        }
+        .record-item label{
+            line-height: 80px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <div id="box" class="namelist"><p style="margin:0 ">亲，祝你好运!</p><span></span><span></span><span></span></div>
-    <button type="button" id="bt" class="do-select" onClick="doit(this)" date-time="10">开始抽奖</button>
+    <div id="box" class="namelist"><p style="margin:0 ">Hello World!</p><span></span><span></span><span></span></div>
+    <div class="record-list">
+        <div class="record-item">
+            <input class="magic-radio" type="radio" name="radio" id="r1" value="option1"> <label for="r1">一等奖</label>
+        </div>
+        <div class="record-item">
+            <input class="magic-radio" type="radio" name="radio" id="r2" value="option1"> <label for="r2">二等奖</label>
+        </div>
+        <div class="record-item">
+            <input class="magic-radio" type="radio" name="radio" id="r3" value="option1" checked> <label for="r3">三等奖</label>
+        </div>
+    </div>
+    <button type="button" id="bt" class="do-select" onClick="doit(this)" date-time="3">开始抽奖</button>
 </div>
 
 <script src="jquery-1.10.1.min.js"></script>
@@ -88,6 +124,7 @@
 <script type="text/javascript">
     var mytime = null;
     var showName=namelist;
+//    抽奖开始
     function doit(i) {
         var t = $(i).attr("date-time");
         var bt = $("#bt");
@@ -103,17 +140,19 @@
             selectedPerson(t)
         }
     }
+//    显示人员姓名滚动
     function show() {
         var box = $("#box").find('span');
         var num = Math.floor((Math.random() * 100000)) % namelist.length;
         box.html(showName[num]);
         mytime = setTimeout("show()", 1);
     }
+//    选定中奖人员
     function selectedPerson(t) {
         var box = $("#box");
         var name = [];
-        var namehtml='<p style="margin:0">亲，祝你好运!</p>';
-        if(t<namelist.length){
+        var namehtml='<p style="margin:0">恭喜!</p>';
+        if(t<namelist.length){   //判断 中奖人数 与  参与抽奖的人数
             for (var i = 0; i < t; i++) {
                 var num = Math.floor((Math.random() * 1000000)) % namelist.length;
                 name.push(namelist[num]);
@@ -121,12 +160,9 @@
                 namelist.splice(num, 1);
             }
             box.html(namehtml);
-            console.log(name);
         }else {
-//            alert("人数不足 无法抽奖");
             box.html("对不起！参与人数少于中奖人数");
         }
-
 
     }
 

@@ -21,41 +21,50 @@ module.exports = {
     },
 
 
-    // module: {
-    //     loaders: [                        //在配置文件里添加JSON loader
-    //         {
-    //             test: /\.json$/,
-    //             loader: "json"
-    //         },
-    //         {
-    //             test: /\.js$/,
-    //             exclude: /node_modules/,
-    //             loader: 'babel',            //在webpack的module部分的loaders里进行配置即可
-    //             query: {
-    //                 presets: ['react', 'es2015']
-    //             },
-    //             env: {
-    //                 development: {
-    //                     plugins: [["react-transform", {
-    //                         transforms: [{
-    //                             transform: "react-transform-hmr",
-    //
-    //                             imports: ["react"],
-    //
-    //                             locals: ["module"]
-    //                         }]
-    //                     }]]
-    //                 }
-    //             }
-    //         },
-    //         {
-    //             test: /\.css$/,
-    //             // loader: 'style!css'         //添加对样式表的处理
-    //             // loader: 'style!css?modules',//跟前面相比就在后面加上了?modules
-    //             loader: 'style!css?modules!postcss'
-    //         }
-    //     ]
-    // },
+    module: {
+        loaders: [                        //在配置文件里添加JSON loader
+            {
+                test: /\.json$/,
+                loader: "json"
+            },
+            {
+                test: /\.scss$/,
+                loaders: ['style', 'css', 'sass'],
+                // include: APP_PATH
+            },
+            {
+                test: /\.(png|jpg)$/,
+                loader: 'url?limit=40000'
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel',            //在webpack的module部分的loaders里进行配置即可
+                query: {
+                    presets: ['react', 'es2015']
+                },
+                env: {
+                    development: {
+                        plugins: [["react-transform", {
+                            transforms: [{
+                                transform: "react-transform-hmr",
+
+                                imports: ["react"],
+
+                                locals: ["module"]
+                            }]
+                        }]]
+                    }
+                }
+            },
+            // {
+            //     test: /\.css$/,
+            //     // loader: 'style!css'         //添加对样式表的处理
+            //     // loader: 'style!css?modules',//跟前面相比就在后面加上了?modules
+            //     loader: 'style!css?modules!postcss'
+            // }
+        ]
+    },
 
 
     resolve: {
@@ -80,7 +89,7 @@ module.exports = {
 
     // 配置本地的服务器
     devServer: {
-        contentBase: "./src",    //本地服务器所加载的页面所在的目录 默认webpack-dev-server会为根文件夹提供本地服务器，如果想为另外一个目录下的文件提供本地服务器，应该在这里设置其所在目录
+        contentBase: "./src/js/",    //本地服务器所加载的页面所在的目录 默认webpack-dev-server会为根文件夹提供本地服务器，如果想为另外一个目录下的文件提供本地服务器，应该在这里设置其所在目录
         colors: true,               //终端中输出结果为彩色
         historyApiFallback: true,   //不跳转
         inline: true,               //实时刷新

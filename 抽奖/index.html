@@ -30,7 +30,7 @@
             color: #fff;
             width: 1070px;
             font-size: 50px;
-            top: 330px;
+            top: 280px;
             left: 419px;
             text-align: center;
 
@@ -77,6 +77,10 @@
         .do-select.stop-btn{
             background-image: url(img/stop-btn.png) ;
         }
+        .do-select.default-btn{
+            background-image: url(img/default.png) ;
+            cursor: not-allowed;
+        }
         .radio{
             line-height: 80px;
 
@@ -90,17 +94,21 @@
 <div class="container">
     <div id="box" class="namelist"><p style="margin:0 ">Hello World!</p><span></span><span></span><span></span></div>
     <div class="record-list">
+
+
+        <!--date-time中的数值 表示该奖项中 的中奖人数-->
+
         <div class="record-item">
-            <input class="magic-radio" type="radio" name="radio" id="r1" value="option1"> <label for="r1">一等奖</label>
+            <input class="magic-radio" type="radio" name="radio" id="r1" value="option1"  date-time="1"> <label for="r1">一等奖</label>
         </div>
         <div class="record-item">
-            <input class="magic-radio" type="radio" name="radio" id="r2" value="option1"> <label for="r2">二等奖</label>
+            <input class="magic-radio" type="radio" name="radio" id="r2" value="option1"  date-time="4"> <label for="r2">二等奖</label>
         </div>
         <div class="record-item">
-            <input class="magic-radio" type="radio" name="radio" id="r3" value="option1" checked> <label for="r3">三等奖</label>
+            <input class="magic-radio" type="radio" name="radio" id="r3" value="option1"  date-time="10" > <label for="r3">三等奖</label>
         </div>
     </div>
-    <button type="button" id="bt" class="do-select" onClick="doit(this)" date-time="3">开始抽奖</button>
+    <button type="button" id="bt" class="do-select default-btn" onClick="doit(this)" date-time="" disabled>开始抽奖</button>
 </div>
 
 <script src="jquery-1.10.1.min.js"></script>
@@ -114,7 +122,6 @@
     });
     function resizeWidth() {
         var s=($(window).width() / $(document.body).outerWidth(true));
-        console.log(s);
         $('html').css({
             transform: "scale(" + s + ")",
             transformOrigin: "left top",
@@ -124,11 +131,19 @@
 <script type="text/javascript">
     var mytime = null;
     var showName=namelist;
-//    抽奖开始
+    var bt = $("#bt");
+    var box = $("#box");
+
+//    抽奖开始  点击开始按钮
     function doit(i) {
         var t = $(i).attr("date-time");
-        var bt = $("#bt");
+        var nameHtml='<p style="margin:0 ">抽奖中...</p>';
         if (mytime == null) {
+            var box = $("#box");
+            for (var i=0;i<t;i++){
+                nameHtml +="<span></span>"
+            }
+            box.html(nameHtml);
             bt.html("停止抽奖");
             bt.addClass("stop-btn");
             show(t);
@@ -140,16 +155,22 @@
             selectedPerson(t)
         }
     }
+//    奖项选择
+    $(".magic-radio").change(function () {
+      $("#bt").attr("date-time",$(this).attr("date-time"));
+        bt.removeClass('default-btn').prop('disabled',false);
+        var namehtml='<p style="margin:0">Hello World!</p>';
+        box.html(namehtml);
+    });
 //    显示人员姓名滚动
     function show() {
-        var box = $("#box").find('span');
+        var box1 = box.find('span');
         var num = Math.floor((Math.random() * 100000)) % namelist.length;
-        box.html(showName[num]);
+        box1.html(showName[num]);
         mytime = setTimeout("show()", 1);
     }
 //    选定中奖人员
     function selectedPerson(t) {
-        var box = $("#box");
         var name = [];
         var namehtml='<p style="margin:0">恭喜!</p>';
         if(t<namelist.length){   //判断 中奖人数 与  参与抽奖的人数

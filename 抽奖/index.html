@@ -88,7 +88,6 @@
     <div id="box" class="namelist"><p style="margin:0 ">Hello World!</p><span></span><span></span><span></span></div>
     <div class="record-list">
 
-
         <!--date-time中的数值 表示该奖项中 的中奖人数-->
 
         <div class="record-item">
@@ -158,7 +157,7 @@
 //    显示人员姓名滚动
     function show() {
         var box1 = box.find('span');
-        var num = Math.floor((Math.random() * 100000)) % namelist.length;
+        var num = Math.floor(Math.random() * 100000) % namelist.length;
         box1.html(showName[num]);
         mytime = setTimeout("show()", 1);
     }
@@ -168,7 +167,7 @@
         var namehtml='<p style="margin:0">恭喜!</p>';
         if(t<namelist.length){   //判断 中奖人数 与  参与抽奖的人数
             for (var i = 0; i < t; i++) {
-                var num = Math.floor((Math.random() * 1000000)) % namelist.length;
+                var num = Math.floor(Math.random() * 1000000) % namelist.length;
                 name.push(namelist[num]);
                 namehtml +='<span>'+namelist[num]+'</span>';
                 namelist.splice(num, 1);

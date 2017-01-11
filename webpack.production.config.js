@@ -14,7 +14,11 @@ module.exports = {
 
     devtool: 'eval-source-map',            //配置生成Source Maps，选择合适的选项  这样出错以后就会采用source-map的形式直接显示你出错代码的位置。
 
-    entry:APP_PATH,  // __dirname + "/src/index.js",   //已多次提及的唯一入口文件
+    entry: {
+        app: path.resolve(APP_PATH),
+        //添加要打包在vendors里面的库
+        vendors: ['jquery', 'moment']
+    },
     output: {
         path: BUILD_PATH,//__dirname + "/assets",      //打包后的文件存放的地方
         filename: "bundle.js"             //打包后输出文件的文件名
@@ -88,7 +92,9 @@ module.exports = {
             $: "jquery",
             jQuery: "jquery",
             "window.jQuery": "jquery"
-        })
+        }),
+        //把入口文件里面的数组打包成verdors.js
+        new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
     ],
 
 

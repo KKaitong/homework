@@ -88,7 +88,7 @@ module.exports = {
             $: "jquery",
             jQuery: "jquery",
             "window.jQuery": "jquery"
-        })
+        }),
     ],
 
 
@@ -98,7 +98,7 @@ module.exports = {
         colors: true,               //终端中输出结果为彩色
         historyApiFallback: true,   //不跳转
         inline: true,               //实时刷新
-        port: "8082",                //设置默认监听端口，如果省略，默认为”8080“
+        port: "8080",                //设置默认监听端口，如果省略，默认为”8080“
         hot: true,
     }
 };
